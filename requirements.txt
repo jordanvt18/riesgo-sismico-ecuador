@@ -6,7 +6,7 @@ geopandas>=0.14
 shapely>=2.0
 pyproj>=3.6
 matplotlib>=3.7
-seaborn>=0.13
+seaborn>=0.13.2
 requests>=2.31
 
 # Entorno de notebooks
