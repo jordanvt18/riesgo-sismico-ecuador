@@ -42,4 +42,4 @@ jobs:
       - name: Verificar que el sitio generado es íntegro
         run: |
           test -s docs/index.html || { echo "::error::docs/index.html no se generó."; exit 1; }
-          grep -q "NO predice sismos" docs/index.html || { echo "::error::falta el aviso de no-predicción en el sitio."; exit 1; }
+          grep -q "predicción determinista" docs/index.html || { echo "::error::falta la premisa de alcance del estudio en el sitio."; exit 1; }

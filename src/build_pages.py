@@ -112,7 +112,7 @@ def construir_mapa(base: gpd.GeoDataFrame):
     fig.update_layout(
         mapbox=dict(style="carto-positron", center=dict(lat=-1.5, lon=-78.5), zoom=5.6),
         margin=dict(l=0, r=0, t=30, b=0), height=560,
-        title_text="Mapa interactivo — seleccione el indicador",
+        title_text="Cartograma interactivo — seleccione el indicador",
         title_font_size=14,
         updatemenus=[dict(buttons=botones, direction="down",
                           x=0.01, xanchor="left", y=1.12, yanchor="top",
@@ -195,33 +195,35 @@ a.boton {{ display:inline-block; background:var(--base); color:#fff; padding:.55
 </head>
 <body>
 <header>
-  <h1>🇪🇨 Riesgo Sísmico en Ecuador</h1>
-  <p class="sub">Peligro relativo × exposición poblacional por cantón (1983–2026) y
-  pronóstico estadístico de <b>tasa</b> de réplicas (Omori-Utsu, Pedernales 2016) —
-  CRISP-DM, fuentes oficiales, código abierto.</p>
+  <h1>Riesgo sísmico en Ecuador</h1>
+  <p class="sub">Índice de peligro y exposición poblacional por cantón (1983–2026) y
+  pronóstico estadístico de la tasa de réplicas de la secuencia de Pedernales 2016
+  (Omori-Utsu) — marco CRISP-DM, fuentes oficiales, código abierto.</p>
 </header>
 <nav>
-  <a href="#aviso">Aviso</a><a href="#mapa">Mapa interactivo</a>
-  <a href="#riesgo">Ranking</a><a href="#replicas">Réplicas</a>
+  <a href="#aviso">Alcance</a><a href="#mapa">Cartograma</a>
+  <a href="#riesgo">Clasificación</a><a href="#replicas">Réplicas</a>
   <a href="#figuras">Figuras</a><a href="#metodologia">Metodología</a>
   <a href="https://github.com/jordanvt18/riesgo-sismico-ecuador" target="_blank" rel="noopener">GitHub ↗</a>
 </nav>
 <main>
 
 <section class="aviso" id="aviso">
-  <h2>⚠️ Antes de empezar: qué hace este proyecto</h2>
-  <p><b class="no">NO predice sismos.</b> Ningún método científicamente validado puede
-  predecir fecha, hora, lugar o magnitud del próximo terremoto (consenso sismológico
-  global y del USGS). Este sitio <b>sí</b> presenta: (1) un índice de
-  <b>peligro sísmico relativo</b> por cantón basado en 43 años de catálogo oficial,
-  (2) la <b>exposición poblacional</b> del Censo 2022 y su combinación en un índice de
-  <b>riesgo relativo</b> para priorizar inversión sismorresistente, y (3) un
-  pronóstico estadístico de la <b>tasa esperada de réplicas</b> tras un gran sismo —
-  tasas, nunca eventos individuales.</p>
+  <h2>Alcance del estudio y premisa científica</h2>
+  <p>La <b class="no">predicción determinista</b> de terremotos —fecha, hora, lugar y
+  magnitud de un evento concreto— no resulta alcanzable con el estado actual del
+  conocimiento sismológico (USGS y literatura especializada), y este estudio no la
+  persigue. Su aporte comprende: (1) un índice de <b>peligro sísmico relativo</b>
+  por cantón, derivado de 43 años de catálogo oficial; (2) la <b>exposición
+  poblacional</b> del Censo 2022 y su integración con el peligro en un índice de
+  <b>riesgo relativo</b> orientado a priorizar la inversión en construcción
+  sismorresistente; y (3) un pronóstico estadístico de la <b>tasa esperada de
+  réplicas</b> tras un sismo principal —una tasa, como estadístico de un proceso
+  estocástico, no la ocurrencia de eventos individuales.</p>
 </section>
 
 <section id="mapa">
-  <h2>🗺️ Mapa interactivo por cantón</h2>
+  <h2>Cartograma interactivo por cantón</h2>
   {MAPA_HTML}
   <p class="nota">Pase el cursor sobre cada cantón. Los sismos frente a la costa
   (subducción) se asignan al cantón más cercano (≤150 km). El peligro usa solo
@@ -229,28 +231,30 @@ a.boton {{ display:inline-block; background:var(--base); color:#fff; padding:.55
 </section>
 
 <section id="riesgo">
-  <h2>🏆 Top 10 cantones por índice de riesgo relativo</h2>
+  <h2>Clasificación cantonal por índice de riesgo relativo</h2>
   <div class="tarjetas">
     <div class="tarjeta"><div class="valor">2.589</div><div class="etiqueta">sismos M≥4 (1983–2026)</div></div>
     <div class="tarjeta"><div class="valor">224</div><div class="etiqueta">cantones analizados</div></div>
     <div class="tarjeta"><div class="valor">221</div><div class="etiqueta">cantones con censo 2022</div></div>
-    <div class="tarjeta"><div class="valor">0.86</div><div class="etiqueta">valor p de Omori (típico 0.8–1.5)</div></div>
+    <div class="tarjeta"><div class="valor">0.86</div><div class="etiqueta">exponente p de Omori (rango típico 0.8–1.5)</div></div>
   </div>
   {TABLA_HTML}
-  <p class="nota">Escala relativa 0–100 dentro de Ecuador. Responde «¿dónde es más
-  urgente invertir en construcción sismorresistente?», no «cuándo va a temblar».</p>
+  <p class="nota">Escala relativa 0–100 dentro del Ecuador. La clasificación
+  responde a la pregunta de priorización territorial de la inversión
+  sismorresistente y no a la ocurrencia temporal de futuros eventos.</p>
 </section>
 
 <section id="replicas">
-  <h2>📉 Pronóstico de TASA de réplicas — Pedernales 2016 (M7.8)</h2>
+  <h2>Pronóstico de la tasa de réplicas — Pedernales 2016 (M7.8)</h2>
   {OMORI_HTML}
-  <p class="nota">Entrenado con los días 1–60 (verosimilitud de Poisson no estacionario)
-  y <b>validado fuera de muestra</b> contra los días 61–120 reales. Pronostica la
-  <b>tasa diaria esperada</b> de la secuencia (M≥4.5, radio 150 km), no eventos individuales.</p>
+  <p class="nota">Entrenamiento con los días 1–60 (máxima verosimilitud bajo un proceso
+  de Poisson no estacionario) y <b>validación fuera de muestra</b> contra los días
+  61–120 observados. El modelo estima la <b>tasa diaria esperada</b> de la secuencia
+  (M≥4.5, radio de 150 km), no la ocurrencia de eventos individuales.</p>
 </section>
 
 <section id="figuras">
-  <h2>🖼️ Figuras del análisis</h2>
+  <h2>Figuras del análisis</h2>
   <div class="galeria">
     <figure><img src="figures/05_mapa_secuencia.png" alt="Secuencia de réplicas de Pedernales 2016" loading="lazy">
       <figcaption>Epicentros de las réplicas de Pedernales 2016 (color: días desde el sismo principal).</figcaption></figure>
@@ -264,7 +268,7 @@ a.boton {{ display:inline-block; background:var(--base); color:#fff; padding:.55
 </section>
 
 <section id="metodologia">
-  <h2>🧪 Metodología y reproducibilidad</h2>
+  <h2>Metodología y reproducibilidad</h2>
   <p><b>Peligro (0–100):</b> ½ frecuencia de sismos M≥4 someros (≤70 km) + ½ energía
   liberada (escala Gutenberg-Richter E = 10^(1.5M+4.8) J), normalizadas.
   <b>Exposición:</b> densidad poblacional del Censo 2022 (INEC), log-normalizada.
@@ -280,8 +284,8 @@ a.boton {{ display:inline-block; background:var(--base); color:#fff; padding:.55
 </main>
 <footer>
   Sitio generado automáticamente por <code>src/build_pages.py</code> ·
-  Código MIT · Datos: IG-EPN, USGS, INEC, IGM/CONALI ·
-  <b>Este proyecto no predice sismos</b> ·
+  Código bajo licencia MIT · Datos: IG-EPN, USGS, INEC, IGM/CONALI ·
+  El estudio no persigue la predicción determinista de terremotos ·
   <a href="https://github.com/jordanvt18" target="_blank" rel="noopener">@jordanvt18</a>
 </footer>
 </body>

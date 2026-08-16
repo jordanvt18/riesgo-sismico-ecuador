@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-DEMO EDUCATIVA — Concepto de alerta temprana sísmica (ondas P vs. S)
-====================================================================
+DEMOSTRACIÓN DIDÁCTICA — Principio físico de la alerta temprana sísmica (ondas P y S)
+======================================================================================
 
-⚠️ Esto es una ILUSTRACIÓN DIDÁCTICA del principio físico de los sistemas de
-alerta temprana (como el SASMEX mexicano o el de Japón). NO es un sistema real
-de alerta, NO está conectado a sensores y NO debe usarse para decisiones de
-seguridad. Ecuador no contaba al 2026 con un sistema público de alerta
-temprana sísmica operativa de cobertura nacional.
+El presente script ilustra el principio físico en que se fundan los sistemas
+de alerta temprana (como el SASMEX mexicano o el de Japón). La demostración
+tiene carácter estrictamente didáctico: no constituye un sistema de alerta,
+no está conectada a instrumentación alguna y no debe emplearse para
+decisiones de seguridad. Al año 2026, el Ecuador no dispone de un sistema
+público nacional de alerta temprana sísmica en operación.
 
 Principio físico:
 - Las ondas P (primarias) viajan a ~7 km/s: llegan primero pero casi no dañan.
@@ -71,8 +72,8 @@ for ciudad, d in CIUDADES.items():
                  xytext=(4, 4), textcoords="offset points", fontsize=8)
 ax2.set_xlim(0, 600)
 
-fig.suptitle("DEMO EDUCATIVA — principio de alerta temprana por diferencia de velocidad P/S "
-             "(no es un sistema real)", fontsize=11, y=1.02)
+fig.suptitle("Demostración didáctica del principio de alerta temprana por diferencia "
+             "de velocidad entre ondas P y S (sin valor operativo)", fontsize=11, y=1.02)
 plt.tight_layout()
 
 salida = os.path.join("..", "reports", "figures", "demo_alerta_temprana.png")
@@ -81,4 +82,4 @@ if not os.path.isdir(os.path.join("..", "reports", "figures")):
 os.makedirs(os.path.dirname(salida), exist_ok=True)
 plt.savefig(salida, bbox_inches="tight", dpi=130)
 print(f"[ok] Figura guardada: {salida}")
-print("Recuerda: demo educativa del principio físico; no es un sistema de alerta real.")
+print("Nota: demostración didáctica del principio físico; no constituye un sistema de alerta real.")
