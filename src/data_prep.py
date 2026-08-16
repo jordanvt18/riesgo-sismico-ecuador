@@ -17,6 +17,13 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 
+# Importación robusta: funciona como paquete (notebooks) y como script
+# (`python src/data_prep.py`, donde sys.path[0] es src/)
+try:
+    from src.models import indice_peligro, indice_riesgo
+except ImportError:  # pragma: no cover - solo al ejecutarse como script
+    from models import indice_peligro, indice_riesgo
+
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(BASE, "data", "raw")
 PROC = os.path.join(BASE, "data", "processed")
@@ -201,6 +208,12 @@ def construir_dataset_cantonal() -> gpd.GeoDataFrame:
     base["poblacion_2022"] = base["poblacion_2022"].fillna(0)
     base["densidad_hab_km2"] = np.where(base["area_km2"] > 0,
                                         base["poblacion_2022"] / base["area_km2"], 0)
+
+    # Índices de peligro y riesgo relativos (definidos en src/models.py).
+    # Se calculan aquí para que el pipeline data_prep -> build_pages sea
+    # autosuficiente sin depender de la ejecución de los notebooks.
+    base["indice_peligro"] = indice_peligro(base)
+    base["indice_riesgo"] = indice_riesgo(base["indice_peligro"], base["densidad_hab_km2"])
     return base, catalogo, sismos
 
 
