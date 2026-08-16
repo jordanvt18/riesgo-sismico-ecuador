@@ -7,7 +7,7 @@ shapely>=2.0
 pyproj>=3.6
 matplotlib>=3.7
 seaborn>=0.13
-requests>=2.31
+requests>=2.34.2
 
 # Entorno de notebooks
 jupyter>=1.0
