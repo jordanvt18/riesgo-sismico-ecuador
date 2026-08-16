@@ -76,15 +76,15 @@ def construir_mapa(base: gpd.GeoDataFrame):
     geojson = json.loads(mapa.to_json())
 
     variables = [
-        ("indice_riesgo", "Índice de riesgo (peligro × exposición)", "YlOrRd"),
-        ("indice_peligro", "Índice de peligro sísmico somero (1983–2026)", "Sunset"),
-        ("densidad_hab_km2", "Exposición: densidad (hab/km², Censo 2022)", "PuBu"),
-        ("mag_max", "Magnitud máxima histórica registrada", "Viridis"),
+        ("indice_riesgo", "Índice de riesgo (peligro × exposición)", "YlOrRd", "Riesgo (0–100)"),
+        ("indice_peligro", "Índice de peligro sísmico somero (1983–2026)", "Sunset", "Peligro (0–100)"),
+        ("densidad_hab_km2", "Exposición: densidad (hab/km², Censo 2022)", "PuBu", "hab/km²"),
+        ("mag_max", "Magnitud máxima histórica registrada", "Viridis", "Magnitud"),
     ]
 
     fig = go.Figure()
     botones = []
-    for i, (col, titulo, escala) in enumerate(variables):
+    for i, (col, titulo, escala, etiqueta_cb) in enumerate(variables):
         mapa[col] = pd.to_numeric(mapa[col], errors="coerce")
         traza = go.Choroplethmapbox(
             geojson=geojson, locations=mapa["canton_norm"],
@@ -102,7 +102,7 @@ def construir_mapa(base: gpd.GeoDataFrame):
                            f"{titulo.split(':')[0] if ':' in titulo else titulo}: %{{z:.1f}}"
                            "<extra></extra>"),
             visible=(i == 0),
-            colorbar=dict(title=dict(text=titulo.split("(", 1)[0].strip()[:22], side="right"),
+            colorbar=dict(title=dict(text=etiqueta_cb, side="right"),
                           thickness=14, outlinewidth=0),
         )
         fig.add_trace(traza)
@@ -111,11 +111,10 @@ def construir_mapa(base: gpd.GeoDataFrame):
                                   {"coloraxis.colorscale": escala}]))
     fig.update_layout(
         mapbox=dict(style="carto-positron", center=dict(lat=-1.5, lon=-78.5), zoom=5.6),
-        margin=dict(l=0, r=0, t=30, b=0), height=560,
-        title_text="Cartograma interactivo — seleccione el indicador",
-        title_font_size=14,
+        margin=dict(l=0, r=0, t=46, b=0), height=560,
+        # Sin título interno: el encabezado HTML de la sección ya lo enuncia
         updatemenus=[dict(buttons=botones, direction="down",
-                          x=0.01, xanchor="left", y=1.12, yanchor="top",
+                          x=0.0, xanchor="left", y=1.015, yanchor="top",
                           bgcolor="white", bordercolor="#B0BEC5")],
     )
     return fig
@@ -139,7 +138,8 @@ def construir_omori(dias, tasas, pred, params, cov):
         title_font_size=13, xaxis_title="Días desde el sismo principal (16-abr-2016)",
         yaxis_title="Réplicas por día", height=430,
         margin=dict(l=40, r=20, t=60, b=40),
-        legend=dict(orientation="h", y=1.15, x=0),
+        legend=dict(orientation="h", x=1, y=1, xanchor="right", yanchor="top",
+                    bgcolor="rgba(255,255,255,0.8)", bordercolor="#B0BEC5", borderwidth=1),
         hovermode="x unified",
     )
     return fig

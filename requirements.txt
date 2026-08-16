@@ -7,6 +7,7 @@ shapely>=2.0
 pyproj>=3.7.2
 matplotlib>=3.7
 seaborn>=0.13
+adjustText>=1.0   # anti-colisión de etiquetas en los gráficos
 requests>=2.34.2
 
 # Entorno de notebooks

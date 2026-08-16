@@ -54,7 +54,9 @@ ax1.plot(distancias, t_p, c="#1F77B4", lw=2.2, label=f"Onda P (aviso) · {V_P} k
 ax1.fill_between(distancias, t_p, t_s, color="#C8102E", alpha=0.12, label="Ventana de alerta posible")
 for ciudad, d in CIUDADES.items():
     ax1.vlines(d, 0, d / V_S, ls=":", color="grey", lw=0.8)
-    ax1.annotate(ciudad, (d, d / V_S), xytext=(3, -10), textcoords="offset points", fontsize=8, rotation=90)
+    # Nombre rotado anclado a la base, con caja blanca: no cruza las curvas
+    ax1.annotate(ciudad, (d, 0), rotation=90, va="bottom", ha="center", fontsize=8,
+                 bbox=dict(facecolor="white", edgecolor="none", alpha=0.75, pad=0.5))
 ax1.set_xlabel("Distancia al epicentro (km)")
 ax1.set_ylabel("Tiempo de arribo (s)")
 ax1.set_title("Arrivo de ondas P y S desde un hipotético M7.8 frente a Pedernales")
@@ -69,7 +71,8 @@ ax2.set_title("Tiempo de adelanto = t(S) − t(P)\n(zona de mayor beneficio: 60�
 for ciudad, d in CIUDADES.items():
     ax2.plot(d, d / V_S - d / V_P, "o", ms=4, color="#C8102E")
     ax2.annotate(f"{ciudad}\n{d/V_S - d/V_P:.0f} s", (d, d / V_S - d / V_P),
-                 xytext=(4, 4), textcoords="offset points", fontsize=8)
+                 xytext=(5, 4), textcoords="offset points", fontsize=8,
+                 bbox=dict(facecolor="white", edgecolor="none", alpha=0.75, pad=0.5))
 ax2.set_xlim(0, 600)
 
 fig.suptitle("Demostración didáctica del principio de alerta temprana por diferencia "
