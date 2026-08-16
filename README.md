@@ -209,6 +209,18 @@ alerta temprana sísmica.
 | 4b. Modelado réplicas | `05_modeling_replicas.ipynb` + `src/models.py` |
 | 5/6. Evaluación y conclusiones | `06_evaluation.ipynb` |
 
+## 🔒 Seguridad y gobernanza
+
+- **Política de divulgación responsable:** [SECURITY.md](SECURITY.md) (reportes
+  privados habilitados en la pestaña *Security* del repositorio).
+- **Cadena de suministro:** Dependabot activo para `pip` y acciones de GitHub;
+  integración continua que verifica la reproducibilidad del pipeline en cada
+  push ([.github/workflows/ci.yml](.github/workflows/ci.yml)).
+- **Escaneo de secretos** con **protección en el push** habilitados; historial
+  auditado sin credenciales. El sitio de Pages es estático: sin cookies ni
+  telemetría.
+- **Convivencia:** [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
 ## 📜 Licencia y créditos
 
 - Código: [MIT](LICENSE). Datos: según cada fuente oficial (IG-EPN/USGS

@@ -18,5 +18,14 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Secretos y credenciales (nunca se versionan)
+.env
+.env.*
+*.pem
+*.key
+*.htpasswd
+credentials*.json
+secrets*.y*ml
+
 # Archivos temporales grandes si se re-ejecuta el fetch
 data/raw/*.zip

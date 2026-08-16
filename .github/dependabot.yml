@@ -1,0 +1,23 @@
+# Dependabot: mantiene actualizadas las dependencias del proyecto.
+# - pip: librerías de requirements.txt (chequeo de seguridad semanal)
+# - github-actions: acciones usadas en .github/workflows/
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "chore(deps): "
+    labels:
+      - "dependencias"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    commit-message:
+      prefix: "chore(ci): "
+    labels:
+      - "dependencias"

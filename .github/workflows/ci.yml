@@ -1,0 +1,45 @@
+# Integración continua: verifico en cada push/PR que el pipeline sea
+# reproducible de extremo a extremo con los datos versionados en el repo.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  reproducibilidad:
+    name: Sintaxis y pipeline reproducible (Python 3.12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias de ejecución
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy scipy geopandas matplotlib requests plotly
+
+      - name: Verificar sintaxis de src/ y demo/
+        run: python -m compileall -q src demo
+
+      - name: Ejecutar el pipeline de preparación de datos
+        run: python src/data_prep.py
+
+      - name: Regenerar el sitio estático de GitHub Pages
+        run: python src/build_pages.py
+
+      - name: Verificar que el sitio generado es íntegro
+        run: |
+          test -s docs/index.html || { echo "::error::docs/index.html no se generó."; exit 1; }
+          grep -q "NO predice sismos" docs/index.html || { echo "::error::falta el aviso de no-predicción en el sitio."; exit 1; }
