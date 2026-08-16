@@ -88,7 +88,37 @@ cortical de retro-arco que la norma pondera mediante atenuación (ρ de
 Spearman = 0.15, p = 0.03). El análisis pormenorizado se encuentra en el
 [notebook 06](notebooks/06_evaluation.ipynb).
 
-## 3. Datos y fuentes oficiales
+## 3. Aplicabilidad práctica: de la información a la acción
+
+Un estudio de riesgo sísmico justifica su existencia en la medida en que su
+resultado sea **accionable**. Los índices de este estudio no constituyen un fin
+descriptivo: son un instrumento de priorización que responde a la pregunta
+operativa «con recursos limitados para la reducción del riesgo, ¿dónde se
+comienza?». El sitio interactivo incorpora un **consultor cantonal** —sin
+registro ni dependencias externas— en el que cualquier persona escribe su
+cantón y obtiene su perfil (peligro, riesgo, zona NEC aproximada, población,
+densidad, sismicidad registrada) junto con acciones recomendadas según su nivel
+de prioridad relativa.
+
+| Audiencia | Uso del estudio | Acción concreta |
+|---|---|---|
+| Ciudadanía y hogares | Conocer el perfil de su cantón y su zona NEC | Kit familiar de emergencia; plan familiar con puntos de encuentro; fijado de muebles altos y revisión de instalaciones; evaluación técnica de viviendas autoconstruidas o de adobe (medida de mayor impacto individual en cantones de prioridad alta) |
+| GAD municipales y gestores de riesgo | Priorización territorial del gasto | Refuerzo de edificaciones esenciales (hospitales, escuelas, bomberos) con el criterio peligro × exposición; catastro de edificaciones vulnerables; exigencia de la NEC en permisos; simulacros anuales |
+| Educación | Identificación de centros en cantones de prioridad alta | Simulacros escolares programados y contenidos de preparación en el calendario académico |
+| Medios de comunicación | Lenguaje correcto sobre réplicas | Difusión de tasas esperadas con decaimiento (Omori-Utsu), citando al IG-EPN y al SNGRE, sin anuncios de eventos individuales |
+
+**Lectura práctica del modelo de réplicas.** Tras un sismo principal, la tasa de
+réplicas decrece de forma hiperbólica (en Pedernales 2016, p ≈ 0.9: de ≈5
+réplicas/día al inicio a menos de 1/día hacia la tercera semana). La
+recomendación operativa que se deriva del modelo es precisa: no reingresar a
+edificaciones dañadas mientras la tasa se mantiene alta, esperar las
+inspecciones oficiales y, en la costa, anticipar la evacuación a terreno alto.
+
+Corresponde subrayar que la clasificación es relativa a escala nacional y de
+carácter orientativo: no sustituye la microzonificación sísmica local, la
+evaluación estructural profesional ni la norma NEC.
+
+## 4. Datos y fuentes oficiales
 
 | Dato | Fuente oficial | Acceso empleado |
 |---|---|---|
@@ -102,14 +132,14 @@ El catálogo del IG-EPN constituye la referencia nacional; su descarga masiva
 requiere solicitud institucional. Por reproducibilidad programática, este
 estudio emplea el servicio FDSN del USGS —igualmente oficial—, que incorpora
 los eventos reportados por la red regional. La integración del catálogo del
-IG-EPN se contempla como línea de trabajo futuro (véase la sección 8).
+IG-EPN se contempla como línea de trabajo futuro (véase la sección 9).
 
-## 4. Estructura del repositorio
+## 5. Estructura del repositorio
 
 ```
 riesgo-sismico-ecuador/
 ├── data/
-│   ├── raw/                  # Datos oficiales descargados (véase la sección 3)
+│   ├── raw/                  # Datos oficiales descargados (véase la sección 4)
 │   └── processed/            # Catálogo depurado, sismos×cantón, índices
 ├── notebooks/                # CRISP-DM, ejecutables de extremo a extremo
 │   ├── 01_business_understanding.ipynb
@@ -131,7 +161,7 @@ riesgo-sismico-ecuador/
 ├── README.md · SECURITY.md · CODE_OF_CONDUCT.md · requirements.txt · LICENSE
 ```
 
-## 5. Metodología
+## 6. Metodología
 
 ### 5.1 Peligro y exposición (notebook 04)
 
@@ -169,7 +199,7 @@ riesgo-sismico-ecuador/
 - Exploración —sin hipótesis causal— de la sismicidad M≥3 en torno a Mazar,
   Paute y Coca Codo Sinclair, antes y después de su entrada en operación.
 
-## 6. Reproducibilidad
+## 7. Reproducibilidad
 
 Requisitos: Python ≥ 3.10.
 
@@ -196,7 +226,7 @@ La integración continua (`.github/workflows/ci.yml`) verifica en cada push y
 pull request la sintaxis del código y la reproducibilidad integral del
 pipeline sobre los datos versionados.
 
-## 7. Demostración didáctica: principio físico de la alerta temprana
+## 8. Demostración didáctica: principio físico de la alerta temprana
 
 `demo/demo_alerta_temprana.py` ilustra el principio físico de los sistemas de
 alerta temprana: la onda P se propaga aproximadamente 1.8 veces más rápido que
@@ -208,7 +238,7 @@ un sistema público nacional de alerta temprana sísmica.
 
 ![Demostración P/S](reports/figures/demo_alerta_temprana.png)
 
-## 8. Limitaciones
+## 9. Limitaciones
 
 1. El índice de riesgo no constituye un análisis PSHA: no calcula
    probabilidades de excedencia de aceleración y no sustituye la zonificación
@@ -227,7 +257,7 @@ un sistema público nacional de alerta temprana sísmica.
 6. Los cantones homónimos (Bolívar y Olmedo, presentes en dos provincias cada
    uno) comparten clave de nombre en el cruce, lo que afecta a 4 de 224 filas.
 
-## 9. Seguridad y gobernanza
+## 10. Seguridad y gobernanza
 
 - **Política de divulgación responsable:** [SECURITY.md](SECURITY.md) (reportes
   privados habilitados en la pestaña *Security* del repositorio).
@@ -239,7 +269,7 @@ un sistema público nacional de alerta temprana sísmica.
   telemetría.
 - **Convivencia:** [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
-## 10. Correspondencia con el marco CRISP-DM
+## 11. Correspondencia con el marco CRISP-DM
 
 | Fase CRISP-DM | Implementación |
 |---|---|
@@ -250,7 +280,7 @@ un sistema público nacional de alerta temprana sísmica.
 | 4b. Modelado: réplicas | `05_modeling_replicas.ipynb` + `src/models.py` |
 | 5/6. Evaluación y conclusiones | `06_evaluation.ipynb` |
 
-## 11. Licencia y reconocimientos
+## 12. Licencia y reconocimientos
 
 - Código bajo [licencia MIT](LICENSE). Datos conforme a cada fuente oficial:
   catálogos IG-EPN/USGS de acceso público; Censo 2022 del INEC de uso libre
