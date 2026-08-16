@@ -6,6 +6,10 @@ peligro × exposición poblacional por cantón (1983–2026) y un modelo
 estadístico de pronóstico de **tasa** de réplicas, calibrado con la secuencia
 del terremoto de **Pedernales 2016 (M7.8)**.
 
+> 🌐 **Sitio interactivo (GitHub Pages):** <https://jordanvt18.github.io/riesgo-sismico-ecuador/>
+> — mapa coroplético por cantón, gráfico Omori-Utsu interactivo y ranking de riesgo.
+> Se regenera con `python src/build_pages.py` (salida en `docs/`).
+
 ---
 
 ## ⚠️ Lee esto primero: qué SÍ hace y qué NO hace este proyecto
