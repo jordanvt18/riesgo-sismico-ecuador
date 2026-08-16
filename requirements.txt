@@ -1,0 +1,14 @@
+# Ciencia de datos — riesgo sísmico Ecuador
+pandas>=2.0
+numpy>=1.24
+scipy>=1.10
+geopandas>=0.14
+shapely>=2.0
+pyproj>=3.6
+matplotlib>=3.7
+seaborn>=0.13
+requests>=2.31
+
+# Entorno de notebooks
+jupyter>=1.0
+jupytext>=1.15   # opcional: sincroniza notebooks con las fuentes .py de .nb_src

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Fuentes de autoría de notebooks (se publican solo los .ipynb ejecutados)
+.nb_src/
+
+# Sistema / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Archivos temporales grandes si se re-ejecuta el fetch
+data/raw/*.zip
